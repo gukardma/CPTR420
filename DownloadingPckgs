@@ -1,0 +1,12 @@
+##DownloadingPckgs
+
+
+installed.packages() #which packages are installed
+data()               #datasets available
+
+Install a package
+install.packages("dplyr") 
+
+#load a packages
+library(dplyr)
+
