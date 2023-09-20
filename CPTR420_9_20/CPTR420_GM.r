@@ -1,6 +1,8 @@
 # 0/20/23
 # Guichard Manigat
 
+#View(GM_sampleDF)
+
 # Loads library
 library(dplyr)
 
@@ -39,6 +41,14 @@ GM_sampleDF <- GM_sampleDF %>%
     )
 
 # Show all variables for Southwest (WN) flights
-GM_sampleDF <- GM_sampleDF %>%
-    filter(CARRIER == 'WN')
+GM_sampleDF_WN <- GM_sampleDF %>%
+    filter(Airline == 'WN')
 
+
+#Show flight date, carrier, origin city, destination city for all observations(i.e. rows)
+GM_sampleDF_Sel <- GM_sampleDF %>%
+    select(c('FL_DATE','Airline','ORIGIN_CITY','DEST_CITY'))
+
+#Show Flight Date, Origin, Destination, Airline, Cancelled, Cancellation Code of all cancelled flights
+
+print(GM_sampleDF)
