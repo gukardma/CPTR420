@@ -1,0 +1,64 @@
+1. **`filter()` Function**:
+
+   - The `filter()` function is used to subset rows in a dataframe based on specific conditions or criteria.
+   - Syntax:
+     ```R
+     filter(.data, condition)
+     ```
+     - `.data`: The dataframe you want to filter.
+     - `condition`: A logical condition that specifies which rows to keep.
+   - Example:
+     ```R
+     # Filter rows where Age is greater than 25
+     filtered_data <- data %>%
+       filter(Age > 25)
+     ```
+
+2. **`select()` Function**:
+
+   - The `select()` function is used to choose and reorder columns in a dataframe.
+   - Syntax:
+     ```R
+     select(.data, columns_to_select)
+     ```
+     - `.data`: The dataframe you want to select columns from.
+     - `columns_to_select`: Columns you want to include in the output dataframe.
+   - Example:
+     ```R
+     # Select only 'Name' and 'Age' columns
+     selected_data <- data %>%
+       select(Name, Age)
+     ```
+
+3. **`arrange()` Function**:
+
+   - The `arrange()` function is used to reorder rows in a dataframe based on the values of one or more columns.
+   - Syntax:
+     ```R
+     arrange(.data, column1, column2, ...)
+     ```
+     - `.data`: The dataframe you want to reorder.
+     - `column1`, `column2`, etc.: Columns by which to sort the dataframe. You can specify multiple columns to sort by.
+   - Example:
+     ```R
+     # Arrange the data by 'Age' in ascending order
+     sorted_data <- data %>%
+       arrange(Age)
+     ```
+
+4. **`mutate()` Function**:
+
+   - The `mutate()` function is used to create new columns or modify existing ones based on expressions or calculations involving existing columns.
+   - Syntax:
+     ```R
+     mutate(.data, new_column = expression)
+     ```
+     - `.data`: The dataframe you want to modify.
+     - `new_column`: The name of the new column you want to add.
+     - `expression`: The calculation or transformation used to define the values of the new column.
+   - Example:
+     ```R
+     # Add a new column 'Age_Group' based on 'Age'
+     data <- data %>%
+       mutate(Age_Group = ifelse(Age < 30, "Young", "Old"))
+     ```

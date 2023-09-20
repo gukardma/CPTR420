@@ -17,6 +17,11 @@ GM_sampleDF <- yourFileName %>%
 # List all the column names
 colnames(GM_sampleDF)
 
+# Drop the two columns WHEELS_OFF and WHEELS_ON
+GM_sampleDF <- GM_sampleDF %>%
+    select(-c('WHEELS_OFF','WHEELS_ON'))
 
+# Check if exists (returns error)
+#GM_sampleDF['WHEELS_OFF']
 
-GM_sampleDF <- GM_sampleDF['CARRIER']=='Airliner'
+# Change the name of column CARRIER to Airline
