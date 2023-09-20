@@ -4,20 +4,19 @@
 # Laods library
 library(dplyr)
 
+
+library(magrittr)
 # Choses file to read, keeps header, and converts blank variables into NA strings
 yourFileName <- read.csv(file.choose(), header=T, na.strings = '')
 
 
-# Randomly select 3/5 of the data into a new dataframe
+# Randomly select 3/5 of rows in yourFileName into GM_sampleDF
 GM_sampleDF <- yourFileName %>%
-    slice_sample(prop=.10)
+    sample_frac(3/5)
 
-
-class(GM_sampleDF)
-
-print(GM_sampleDF)
-# List all column names
+# List all the column names
 colnames(GM_sampleDF)
+
 
 
 GM_sampleDF <- GM_sampleDF['CARRIER']=='Airliner'
