@@ -11,9 +11,9 @@ library(dplyr)
 
 # 0 Check if file exists, otherwise choose, keeps header, and converts blank variables into NA strings
 if (file.exists("CPTR420_9_20/September_19_Data.csv")) {
-  df <- read.csv("CPTR420_9_20/September_19_Data.csv", header = TRUE, na.strings = "")
+    df <- read.csv("CPTR420_9_20/September_19_Data.csv", header = TRUE, na.strings = "")
 } else {
-  df <- read.csv(file.choose(), header = TRUE, na.strings = "")
+    df <- read.csv(file.choose(), header = TRUE, na.strings = "")
 }
 
 # 1 Randomly select 3/5 of rows in df into GM_sampleDF
@@ -32,11 +32,8 @@ GM_sampleDF <- GM_sampleDF %>%
     rename("Airline" = "CARRIER")
 
 # 5 Remove leading/trailing spaces in DEST_STATE and ORIGIN_STATE (Does not work?)
-# GM_sampleDF <- GM_sampleDF %>%
-#     mutate(
-#         GM_sampleDF["DEST_STATE"] <- trimws(GM_sampleDF["DEST_STATE"]),
-#         GM_sampleDF["ORIGIN_STATE"] <- trimws(GM_sampleDF["ORIGIN_STATE"])
-#     )
+GM_sampleDF <- GM_sampleDF %>%
+    mutate(DEST_STATE = trimws(DEST_STATE), ORIGIN_STATE = trimws(ORIGIN_STATE))
 
 # 6 Show all variables for Southwest (WN) flights
 QUES_6 <- GM_sampleDF %>%
