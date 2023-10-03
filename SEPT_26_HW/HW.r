@@ -38,4 +38,31 @@ flights <- unite(flights, col="flightDate", c("year","month","day"),sep="-", rem
 
 #6. Create a new df called dailyWeather that will have the average temp, average
 
-dailyWeather %>%
+# Data cleaning
+weather <- weather %>%
+  mutate(
+    temp = as.numeric(temp),
+    wind_speed = as.numeric(wind_speed),
+    humid = as.numeric(humid)
+  )
+
+dailyWeather <- weather %>%
+  group_by(origin, day) %>%
+  summarize(
+    avg_temp = mean(temp, na.rm = TRUE),
+    avg_wind_speed = mean(wind_speed, na.rm = TRUE),
+    avg_humidity = mean(humid, na.rm = TRUE)
+  )
+
+#7. Create a new df called full_flights. This should have (flight, origin,
+#desHnaHon, … all the data from flights as well as the appropriate carrier
+#name, average temperature, average wind speed and average humidity
+
+full_flights <- flights %>% left_join(dailyWeather, by = "origin", relationship = "many-to-many")
+head(full_flights)
+
+
+#8. Is there a relationship between the age of a plane and its delays?
+flight_info <- flights %>% inner_join(airplanes, by = "tailnum")
+relation_plane <- flight_info %>%
+    group_by(dep_delay, year)
