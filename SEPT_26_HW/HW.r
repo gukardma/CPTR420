@@ -31,7 +31,6 @@ colnames(airport) # name/faa
 colnames(flights) # tailnum
 colnames(weather) # time_hour
 
-
 # weatherKey <- weather %>%
 #     select(origin,time_hour)
 
@@ -106,4 +105,4 @@ active_planes <- flights %>%
 delayed_flights <- flights %>%
     select(dep_delay,time_hour) %>%
     filter(dep_delay > 0) %>%
-    group_by(time)
+    group_by(time_hour)
