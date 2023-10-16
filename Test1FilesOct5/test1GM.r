@@ -43,6 +43,10 @@ sum(is.na(language_codes$code))
 # did not find any NA, but drop anyways just in case
 language_codes <- drop_na(language_codes)
 
+# Answer
+# movies <- movies_df %>%
+#     filter(!is.na(Language_Abbr))
+
 # 10. The Running_Time is currently type chr because it has the units attached
 # e.g. 80 minutes. Write the code to create a column called Movie_Length that
 # will have just the number of minutes and will be an integer. The new
@@ -66,6 +70,7 @@ movies <- movies %>%
         sep = ", ",
         remove = TRUE,
         extra = "drop"
+        # fill = NA
     )
 
 # 12. Add a column called Language to the data. This column will have the name of
@@ -88,13 +93,15 @@ num_14 <- movies %>%
 # Budget and Box Office values. Note that the budget information is missing
 # for some movies.
 num_15 <- movies %>%
-    select(Title, Budget, Box_Office) %>%
-    group_by(Box_Office) %>%
-    sort(decreasing = FALSE)
+    mutate(Profit = Box_Office-Budget) %>%
+    select(Title, Budget, Box_Office, Profit) %>%
+    arrange(desc(Profit)) %>%
+    head(5)
 
 #16 What is the number of movies, average budget and average box office by language.
 # Note that the data might be missing for some movies.
 num_16 <- movies %>%
+    select(Language, Budget, Box_Office) %>%
     group_by(Language) %>%
     summarize(
         numMovies = n(),
@@ -105,11 +112,8 @@ num_16 <- movies %>%
 #17. What is the most popular day for movie release? Show the day number, number of
 # movies released, total budget, total box office
 num_17 <- movies %>%
-    select(Day) %>%
+    select(Day, Budget, Box_Office) %>%
     group_by(Day) %>%
-    summarize(numMovies = n())
-
-
-
-test <- movies %>%
-    select(Budget)
+    summarize(numMovies = n(), totalBudget = sum(Budget, na.rm = TRUE, totalBoxOffice = sum(Box_Office, na.rm = TRUE))) %>%
+    arrange(desc(numMovies)) %>%
+    head(1)
