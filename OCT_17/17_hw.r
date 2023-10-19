@@ -4,6 +4,17 @@ library("tidyr")
 
 lakers <- lubridate :: lakers
 
+# Date manipulation
+lakers$date <- as.Date(as.character(lakers$date), format = "%Y%m%d")
+
+lakers <- lakers %>%
+    separate(
+        col = "date",
+        c("Year", "Month", "Day"),
+        sep = "-",
+        remove = FALSE,
+    )
+
 # 1. Who are the players on the team?
 players <- unique(lakers$player[!is.na(lakers$player)])
 
@@ -17,7 +28,6 @@ game <- lakers %>%
   filter(!is.na(date))
 
 # 4. How long did the season last (number of weeks)?
-lakers$date_as_date <- as.Date(as.character(lakers$date_integer), format = "%Y%m%d")
 
 
 # 5. How long ago did the season end (number of months)?
