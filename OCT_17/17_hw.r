@@ -28,9 +28,18 @@ game <- lakers %>%
   filter(!is.na(date))
 
 # 4. How long did the season last (number of weeks)?
+difftime(game$date[78], game$date[1], units = "weeks")
+
+# Calculate the difference in days
+days <- game$date[78] - game$date[1]
+
+# Convert days to weeks
 
 
-# 5. How long ago did the season end (number of months)?
+# 5. How long ago did the season end (number of months)? ?????
+days <- ymd(game$date[78])
+months_difference <- interval(specific_date, Sys.Date()) %/% months(1)
+
 
 
 # 6. The MVP for each game is the player who made the most shots. Who is the MVP for each 
