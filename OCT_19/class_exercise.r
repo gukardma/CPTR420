@@ -1,17 +1,28 @@
 # 1. Install and load the titanic package and store the titanic_train dataset as a dataframe in a new 
 # object 
 install.packages("titanic") # for ggplot2 and others and for the penguins dataset
+install.packages("tidyverse")
 library(tidyverse)
 library(titanic)
+library(dplyr)
 
 my_df <- titanic_train
-# 2. Prepare the data for visualization: 
+## 2. Prepare the data for visualization:
 # a. Remove all observations where the Survived variable is not known
-summary(my_df)
-na.
-# b. Assign the mean age to all ages that are unknown 
+titanic_train <- subset(titanic_train, !is.na(Survived))
+
+# b. Assign the mean age to all ages that are unknown
+ages <- mean(titanic_train$Age, na.rm = TRUE)
+
+titanic_train <- titanic_train %>%
+  mutate(Age = ifelse(is.na(Age), mean_age, Age))
+
 # c. Assign the median fare to all unknown fares 
-# d. Assign S to all Embarked values that are unknown 
+titanic_train <- titanic_train %>%
+  mutate(Fare = ifelse(is.na(Fare), median(Fare, na.rm = TRUE), Fare))
+
+
+# d. Assign S to all Embarked values that are unknown
 # e. Make sure that the Pclass (i.e. Passenger class), and Survived variables are factors. 
 
 
