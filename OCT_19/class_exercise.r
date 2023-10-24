@@ -13,10 +13,8 @@ data("titanic_train")
 titanic_train <- subset(titanic_train, !is.na(Survived))
 
 # b. Assign the mean age to all ages that are unknown
-ages <- mean(titanic_train$Age, na.rm = TRUE)
-
 titanic_train <- titanic_train %>%
-  mutate(Age = ifelse(is.na(Age), ages, Age))
+  mutate(Age = ifelse(is.na(Age), mean(Age, na.rm = TRUE), Age))
 
 # c. Assign the median fare to all unknown fares 
 titanic_train <- titanic_train %>%
