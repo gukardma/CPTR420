@@ -78,14 +78,31 @@ ggplot(data = survivors_df, aes(x = Embarked)) +
 # f. Is there any relationship between Fare and Age?  Use points and smooth
 ggplot(survivors_df, aes(x = Fare, y = Age)) +
   geom_point() +
-  geom_smooth(method = "lm", se = FALSE) #lin regression line
-#The older the person was, the higher fare they were likely to pay
+  geom_smooth(method = "lm", se = FALSE) # lin regression line
+# The older the person was, the higher fare they were likely to pay
 
 # g. Is survival related to this relationship between Age and Fare?
-#Yes
+ggplot(titanic_train, aes(x = Age, y = Fare, color = factor(Survived))) +
+  geom_point() +
+  labs(
+    x = "Age",
+    y = "Fare"
+  ) +
+  scale_color_manual(values = c("blue", "red"))
+# It seems like the people who had a lower fare and were middle aged were
+# less likely to survive
 
 # h.  Is there any correlation between Age and Survived and Gender?
-#Yes
+ggplot(titanic_train, aes(x = as.factor(Survived), y = Age, fill = Sex)) +
+  geom_boxplot() +
+  labs(
+    x = "Survived",
+    y = "Age"
+  ) +
+  scale_fill_manual(values = c("blue", "red"))
+# If you were young and male, you were more likely do have died.
+# Young females in their 20s, and 30s, were more likely to survive though,
+# and had a wider range of survival in terms of age.
 
 # i. Create a plot that compares survival by age.
 ggplot(survivors_df, aes(x = Age)) +
