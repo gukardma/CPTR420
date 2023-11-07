@@ -43,8 +43,3 @@ houstone <- get_stamenmap(bbox = c(houston_bb[1,1] , houston_bb[2,1] , houston_b
 # conver the homicide df into a simple features (sf) object
 mymap <- st_as_sf(homicide, coords = c("lon","lat"), crs = 4326)
 mapview(mymap, color="brown")
-
-
-
-
-
