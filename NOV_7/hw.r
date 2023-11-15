@@ -1,3 +1,7 @@
+# Guichard Mangiat
+# CPTR420
+# 11_14_2023
+
 library(leaflet)
 library(corrplot)
 library(dplyr)
@@ -8,11 +12,11 @@ data("storms")
 # Checking data structure
 str(storms)
 
-# 1. What are the names assigned to these weather activities (just list the names, no special 
+# 1. What are the names assigned to these weather activities (just list the names, no special
 # visualization required. No repetitions please)
 unique_names <- unique(storms$name)
 
-# 2. How many tropical storms, hurricanes occurred each year? Compare tropical storms and 
+# 2. How many tropical storms, hurricanes occurred each year? Compare tropical storms and
 # hurricanes by year. 
 storms$year <- as.factor(storms$year)
 
@@ -22,7 +26,7 @@ ggplot(storms, aes(x = year, fill = status)) +
   labs(title = "Tropical Storms and Hurricanes Each Year",
        x = "Year", y = "Count")
 
-# 3. For 2004 to 2021 data only, how long did each hurricane last (days), what was the maximum 
+# 3. For 2004 to 2021 data only, how long did each hurricane last (days), what was the maximum
 # max wind speed.
 data("storms")
 
@@ -46,7 +50,6 @@ storms_filtered_speed <- storms %>%
   group_by(name) %>%
   summarise(max_wind_speed = max(wind))
 
-# Bar chart
 ggplot(storms_filtered_speed, aes(x = name, y = max_wind_speed)) +
   geom_bar(stat = "identity") +
   labs(title = "Maximum Maximum Wind Speed of Hurricanes (2004-2021)",
@@ -60,7 +63,7 @@ ggplot(storms, aes(x = wind, y = pressure)) +
        x = "Wind",
        y = "Pressure")
 
-# 5. For 2004 to 2021 hurricanes only what is the correlation between each pair: wind, pressure, 
+# 5. For 2004 to 2021 hurricanes only what is the correlation between each pair: wind, pressure,
 # tropical/hurricane_force_diameter (see corplot)
 storms_subset <- storms %>%
   filter(year >= 2004 & year <= 2021 & status == "hurricane")
@@ -69,7 +72,7 @@ storms_subset <- storms %>%
 cor_matrix <- cor(storms_subset[c("wind", "pressure", "tropicalstorm_force_diameter", "hurricane_force_diameter")])
 corrplot(cor_matrix)
 
-# 6. What are the different types of activity status measured.  Show also the wind speed range for 
+# 6. What are the different types of activity status measured.  Show also the wind speed range for
 # each status
 status_summary <- storms %>%
   group_by(status) %>%
@@ -94,8 +97,8 @@ storms %>%
        x = "Month",
        y = "Number of Activities")
 
-# 8. Are the weather activities concentrated in certain areas/states (map it, use only  hurricanes and 
-# storms combined) 
+# 8. Are the weather activities concentrated in certain areas/states (map it, use only  hurricanes and
+# storms combined)
 # Filter the data for hurricanes and storms
 storms_filtered <- storms %>%
   filter(status %in% c("hurricane", "storm"))
@@ -111,17 +114,17 @@ map <- leaflet(data = storms_filtered) %>%
 map
 
 # 9. Track an event or two over time showing the path it took and how the status and wind speed 
-# changed (you select the event e.g. Maria in 2017) 
+# changed (you select the event e.g. Maria in 2017)
 # Select data for Hurricane Maria in 2017
-hurricane_maria <- storms %>%
-  filter(name == "Maria", year == 2017)
+hurricane_alex <- storms %>%
+  filter(name == "Alex", year == 2010)
 
 # Create a line plot of the hurricane path
-path <- ggplot(hurricane_maria, aes(x = long, y = lat, group = interaction(name, year))) +
+path <- ggplot(hurricane_alex, aes(x = long, y = lat, group = interaction(name, year))) +
   geom_path(aes(color = status), size = 1) +
   geom_point(aes(color = status, size = wind)) +
   scale_size_continuous(name = "Wind Speed") +
-  labs(title = "Hurricane Maria Path and Status Over Time",
+  labs(title = "Hurricane Alex Path and Status Over Time",
        x = "Longitude",
        y = "Latitude",
        color = "Status")
