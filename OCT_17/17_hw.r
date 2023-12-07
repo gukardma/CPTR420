@@ -48,10 +48,10 @@ Ques_8 <- lakers %>%
 
 # 9. What is the longest time between shots made for each game?
 Ques_9 <- lakers %>%
-  group_by(game) %>%
+  group_by(date) %>%
   arrange(time) %>%
-  mutate(diff = time - lag(time)) %>%
-  summarise(timeShots = max(time_diff, na.rm = TRUE))
+  mutate(diff = max(time) - min(time)) %>%
+  summarise(timeShots = max(diff, na.rm = TRUE))
 
 # 10. Approximately how long did each game last?
 Ques_10 <- lakers %>%
@@ -61,7 +61,10 @@ Ques_10 <- lakers %>%
 
 # 11. What was the most popular game day. Show the number of games played on each day of the 
 # week?
-
+Ques_10 <- lakers %>%
+  group_by(date) %>%
+  arrange(opponent) %>%
+  summarise(games = length(unique(opponent)))
 
 # 12. During which years and months were games played?
 
