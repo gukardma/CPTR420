@@ -45,7 +45,7 @@ test <- anti_join(shirts_norm_df, train)
 
 # seperate the labels and variables form the 2 sets
 train_labels <- train[c('ShirtSize')]
-train_labels <- train_results[,1] #force into vector
+train_labels <- train_labels[,1] #force into vector
 train <- train[c('Weight','Height')]
 
 test_labels <- test[c('ShirtSize')]
